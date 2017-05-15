@@ -1,0 +1,90 @@
+{
+  "html" : [
+	{
+            "name" : "_id",
+            "id" : "id",
+            "type" : "hidden"
+        },
+        {
+            "name" : "beer.name",
+            "id" : "name",
+            "caption" : "Name",
+            "type" : "text",
+            "placeholder" : "E.g. Best Sour Ever",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "beer.brewery",
+            "id" : "brewery",
+            "caption" : "Brewery",
+            "type" : "text",
+            "placeholder" : "E.g. BlueTape Brewery",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "beer.location",
+            "id" : "location",
+            "caption" : "Location",
+            "type" : "text",
+            "placeholder" : "E.g. Rack #24",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "beer.alcohol",
+            "id" : "alcohol",
+            "caption" : "Alcohol Percent",
+            "type" : "number",
+            "value" : "5.2",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "No negative values"
+		}
+	    }
+        },
+        {
+            "name" : "beer.quantity",
+            "id" : "quantity",
+            "caption" : "Quantity",
+            "type" : "number",
+            "value" : "1",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "No negative values"
+		}
+	    }
+        },
+        {
+            "name" : "beer.journal",
+            "id" : "journal",
+            "caption" : "Journal",
+            "type" : "textarea"
+        },
+        {
+            "type" : "submit",
+            "id" : "formButton",
+            "value" : "Save"
+        }
+    ]
+}

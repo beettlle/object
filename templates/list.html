@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{# Section for JavaScript #}
+{% block javascript %}
+<script type='text/javascript'>
+
+	var oTable ;
+
+	function getCookie(name) {
+		var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+		return r ? r[1] : undefined;
+	}
+
+// Adding the button function
+	TableTools.BUTTONS.delete_row = $.extend( true, TableTools.buttonBase, {
+		"sNewLine": "<br>",
+		"sButtonText": "Delete row",
+		"sDiv": "",
+		"fnClick": function( nButton, oConfig ) {
+				var anSelected = fnGetSelected( oTable );
+				if ( anSelected.length !== 0 ) {
+					jsonID = { '_id' : anSelected[0]['id'] } ;
+					var jqxhr = $.ajax({
+						type: "POST",
+						url: "{{ "/" + type + "/delete" }}",
+						data: JSON.stringify(jsonID),
+						headers: {
+							"X-XSRFToken" : getCookie("_xsrf")
+						},
+						dataType: "json",
+						success: function() {
+							oTable.fnDeleteRow( anSelected[0] );
+						},
+						error : function (jqXHR, textStatus, errorThrown){
+							console.log(JSON.stringify(jqXHR) + ' ' + textStatus +'  '+errorThrown );
+						}
+					}) ;
+				}
+		}
+	} );
+
+	$(document).ready(function() {
+//Trying to get select to work
+		$('.clickableRow').live("click", function(e) {
+			if ( $(this).hasClass('row_selected') ) {
+				$(this).removeClass('row_selected');
+			}
+			else {
+				oTable.$('tr.row_selected').removeClass('row_selected');
+				$(this).addClass('row_selected');
+			}
+		} );
+
+// Initialize table
+	oTable = $('#mytable').dataTable( {
+		"sDom": 'T<"clear">lfrtip',
+		"oTableTools" : {
+			"aButtons" : [ {
+				"sExtends" : "text",
+				"sButtonText" : "Add",
+				"sDiv" : "add",
+				"fnClick": function( nButton, oConfig ) {
+					window.location = "{{ "/" + type + "/form.html" }}" ;
+				},
+			},
+			{
+				"sExtends" : "delete_row",
+				"sButtonText" : "Delete",
+				"sDiv" : "delete",
+			},
+			{
+				"sExtends" : "text",
+				"sButtonText" : "Edit",
+				"sDiv" : "edit",
+				"fnClick": function( nButton, oConfig ) {
+					var anSelected = fnGetSelected( oTable );
+					if ( anSelected.length !== 0 ) {
+						window.location = "{{ "/" + type + "/form.html?id=" }}" + anSelected[0]['id'] ;
+					}
+				},
+			} ]
+		 },
+        	"bProcessing": true,
+		"bDeferRender": true,
+		"sAjaxSource": "{{ "/" + type + "/getAll" }}",
+		"sAjaxDataProp" : "object",
+		"fnCreatedRow" : function( nRow, aData, iDataIndex ) {
+			nRow.setAttribute("onclick", "");
+		},
+		"aoColumns": {% raw classes %}
+		} );
+	} );
+
+	function fnGetSelected( oTableLocal ) {
+		return oTableLocal.$('tr.row_selected');
+	}
+
+</script>
+{% end %}
+
+
+{# Section for page content #}
+{% block content %}
+<div class="hero-unit">
+{# Hack to get xsrf to work on a non-form #}
+{% module xsrf_form_html() %}
+<p>Your {{ type }} problem</p>
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mytable" width="100%">
+    <thead>
+	<tr> {% for t in titles %} {% block t %}
+		<th>{{ t }}</th>
+	     {% end %}{% end %}
+	</tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+</div>
+{% end %}

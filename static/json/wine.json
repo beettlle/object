@@ -1,0 +1,139 @@
+{
+  "html" : [
+        {
+            "name" : "_id",
+            "id" : "id",
+            "type" : "hidden"
+        },
+        {
+            "name" : "wine.name",
+            "id" : "name",
+            "caption" : "Name",
+            "type" : "text",
+	    "placeholder" : "E.g. Best Merlot Ever"
+        },
+        {
+            "name" : "wine.producer",
+            "id" : "producer",
+            "caption" : "Producer",
+            "type" : "text",
+            "placeholder" : "E.g. BlueTape Winery",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "wine.appellation",
+            "id" : "appellation",
+            "caption" : "Appellation",
+            "type" : "text",
+            "placeholder" : "E.g. Sonoma Valley",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+	},
+        {
+            "name" : "wine.style",
+            "id" : "style",
+            "caption" : "Style",
+            "type" : "text",
+            "placeholder" : "E.g. Barbera, Merlot",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "wine.color",
+            "id" : "color",
+            "caption" : "Color",
+            "type" : "select",
+	    "options" : {
+		"Red" : "Red",
+		"White" : "White",
+		"Rose" : "Rose",
+		"Sparkling" : "Sparkling",
+		"Dessert" : "Dessert",
+		"Fortified" : "Fortified"
+	    }
+        },
+        {
+            "name" : "wine.vintage",
+            "id" : "vintage",
+            "caption" : "Vintage Year",
+            "type" : "number",
+            "value" : "2008",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+	{
+	   "name" : "wine.location",
+	   "id" : "location",
+	   "caption" : "Location",
+	   "type" : "text",
+	   "placeholder" : "E.g. Rack #24",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+	},
+        {
+            "name" : "wine.alcohol",
+            "id" : "alcohol",
+            "caption" : "Alcohol Percent",
+            "type" : "number",
+            "value" : "12.7",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "wine.quantity",
+            "id" : "quantity",
+            "caption" : "Quantity",
+            "type" : "number",
+            "value" : "1",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "Can't have negavite values"
+		}
+	    }
+        },
+        {
+            "name" : "wine.journal",
+            "id" : "journal",
+            "caption" : "Journal",
+            "type" : "textarea"
+        },
+        {
+            "type" : "submit",
+	    "id" : "formButton",
+            "value" : "Save"
+        }
+    ]
+}

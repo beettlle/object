@@ -1,0 +1,90 @@
+{
+  "html" : [
+	{
+            "name" : "_id",
+            "id" : "id",
+            "type" : "hidden"
+        },
+        {
+            "name" : "liquor.name",
+            "id" : "name",
+            "caption" : "Name",
+            "type" : "text",
+            "placeholder" : "E.g. Best Gin Ever",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "liquor.distillery",
+            "id" : "distillery",
+            "caption" : "Distillery",
+            "type" : "text",
+            "placeholder" : "E.g. BlueTape Distillery",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "liquor.location",
+            "id" : "location",
+            "caption" : "Location",
+            "type" : "text",
+            "placeholder" : "E.g. Rack #24",
+	    "validate" : {
+		"required" : true,
+		"minlength" : 1,
+		"messages" : {
+			"required" : "Required Input"
+		}
+	    }
+        },
+        {
+            "name" : "liquor.alcohol",
+            "id" : "alcohol",
+            "caption" : "Alcohol Percent",
+            "type" : "number",
+            "value" : "22.3",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "No negative values"
+		}
+	    }
+        },
+        {
+            "name" : "liquor.quantity",
+            "id" : "quantity",
+            "caption" : "Quantity",
+            "type" : "number",
+            "value" : "1",
+	    "validate" : {
+		"required" : true,
+		"min" : 0,
+		"messages" : {
+			"required" : "No negative values"
+		}
+	    }
+        },
+        {
+            "name" : "liquor.journal",
+            "id" : "journal",
+            "caption" : "Journal",
+            "type" : "textarea"
+	},
+        {
+            "type" : "submit",
+        "id" : "formButton",
+            "value" : "Save"
+        }
+    ]
+}

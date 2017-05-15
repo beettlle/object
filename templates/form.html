@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{# Section for JavaScript #}
+{% block javascript %}
+<script type='text/javascript'>
+
+	function getCookie(name) {
+		var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+		return r ? r[1] : undefined;
+	}
+
+	$(document).ready(function(){
+		$("#myform").dform("{{ static_url("json/" + type + ".json") }}");
+
+		$("#myform").submit(function(e) {
+			e.preventDefault() ;
+			if ($(this).validate().form()) {
+				$.ajax({
+					type: "POST",
+					url: "{{ "/" + type + "/save" }}",
+					data : JSON.stringify(form2js('myform', '.', true)),
+					headers: {
+						"X-XSRFToken" : getCookie("_xsrf")
+					},
+					dataType: "json",
+					success: function(msg) {
+						console.log(msg) ;
+						window.location = "{{ "/" + type + "/list.html" }}" ;
+					},
+					error : function (jqXHR, textStatus, errorThrown){
+						console.log(JSON.stringify(jqXHR) + ' ' + textStatus +'  '+ errorThrown );
+					}
+				});
+			} else {
+				console.log("someone didn't fill out the form right") ;
+			}
+		}) ;
+
+{% if id != 0 %}
+//Do stuff to auto-fill the form
+		$.getJSON(
+			"{{ "/" + type + "/get" }}",
+			{id : '{{ id }}'},
+			function(data) {
+				js2form(document.getElementById('myform'), data) ;
+			}
+		)
+		.error(function(jqXHR) {
+			console.log(JSON.stringify(jqXHR) + ' ' + textStatus +'  '+ errorThrown );
+		});
+{% end %}
+
+	}) ;
+</script>
+{% end %}
+
+
+{# Section for page content #}
+{% block content %}
+
+      <form id="myform" class="form-object">
+				<h2 class="form-object-heading">Ooooo {{ type }} :</h2>
+				{% module xsrf_form_html() %}
+      </form>
+
+{% end %}
